@@ -17,7 +17,7 @@ export class SignupDto {
 
   @IsString()
   @IsNotEmpty()
-  secondName: string;
+  lastName: string;
 
   @IsNotEmpty()
   telephone: string;
