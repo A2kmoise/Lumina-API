@@ -1,8 +1,14 @@
+
 # compiled output
 /dist
 /node_modules
 /build
 
+
+#docker
+/docker-compose.override.yml
+/docker-compose.yml
+docker-compose.yml
 # Logs
 logs
 *.log

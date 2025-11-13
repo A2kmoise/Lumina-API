@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: env.PWD
+      POSTGRES_PASSWORD: test123
       POSTGRES_DB: lumina
     ports:
       - "5432:5432"
