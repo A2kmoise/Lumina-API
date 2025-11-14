@@ -67,7 +67,7 @@ export class UserService {
     }
 
     try {
-      // Find user by email
+
       const user = await this.prisma.user.findUnique({
         where: { email: dto.email }
       });
@@ -76,17 +76,17 @@ export class UserService {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      // Compare passwords
+     
       const passwordMatches = await bcrypt.compare(dto.password, user.password);
 
       if (!passwordMatches) {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      // Generate tokens
+
       const tokens = await this.generateTokens(user.id, user.email);
 
-      // Store refresh token in database
+      
       await this.updateRefreshToken(user.id, tokens.refreshToken);
 
       return {
@@ -107,15 +107,15 @@ export class UserService {
     }
   }
 
-  // Refresh access token using refresh token
+  
   async refreshTokens(refreshToken: string) {
     try {
-      // Verify the refresh token
+      
       const payload = await this.jwt.verifyAsync(refreshToken, {
         secret: process.env.JWT_REFRESH_SECRET
       });
 
-      // Get user from database
+
       const user = await this.prisma.user.findUnique({
         where: { id: payload.sub }
       });
@@ -124,17 +124,17 @@ export class UserService {
         throw new UnauthorizedException('Invalid refresh token');
       }
 
-      // Compare refresh tokens
+      
       const refreshTokenMatches = await bcrypt.compare(refreshToken, user.refreshToken);
       
       if (!refreshTokenMatches) {
         throw new UnauthorizedException('Invalid refresh token');
       }
 
-      // Generate new tokens
+     
       const tokens = await this.generateTokens(user.id, user.email);
 
-      // Update refresh token in database
+     
       await this.updateRefreshToken(user.id, tokens.refreshToken);
 
       return tokens;
@@ -144,7 +144,7 @@ export class UserService {
     }
   }
 
-  // Store hashed refresh token in database
+  
   async updateRefreshToken(userId: string, refreshToken: string) {
     const salt = await bcrypt.genSalt();
     const hashedRefreshToken = await bcrypt.hash(refreshToken, salt);
@@ -155,7 +155,7 @@ export class UserService {
     });
   }
 
-  // Logout - remove refresh token
+ 
   async logout(userId: string) {
     await this.prisma.user.update({
       where: { id: userId },
@@ -165,7 +165,7 @@ export class UserService {
     return { message: 'Logged out successfully' };
   }
 
-  //tokens
+ 
   async generateTokens(userId: string, email: string) {
     const payload = { sub: userId, email };
 
