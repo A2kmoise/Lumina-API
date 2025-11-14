@@ -8,23 +8,26 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  password   String
-  firstName  String
-  lastName   String
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  firstName    String
+  lastName     String
   refreshToken String?
-  telephone  String   @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  telephone    String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@index([telephone])
 }
 
 model Driver {
   id              String   @id @default(uuid())
+  email           String   @unique
+  password        String
   firstName       String
   lastName        String
+  refreshToken    String?
   telephone       String   @unique
   licenseNumber   String   @unique
   carDetails      String
@@ -33,10 +36,25 @@ model Driver {
   isAvailable     Boolean  @default(true)
   latitude        Float?
   longitude       Float?
-  address         String? 
+  address         String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
+  locations DriverLocation[]
+
   @@index([isAvailable])
   @@index([telephone])
+}
+
+model DriverLocation {
+  id        String   @id @default(uuid())
+  driverId  String
+  driver    Driver   @relation(fields: [driverId], references: [id])
+  latitude  Float
+  longitude Float
+  address   String?
+  timestamp DateTime @default(now())
+
+  @@index([driverId])
+  @@index([timestamp])
 }
