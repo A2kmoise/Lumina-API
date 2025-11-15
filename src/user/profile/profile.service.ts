@@ -1,6 +1,9 @@
 import { PrismaService } from "src/prisma/prisma.service";
 import { ProfileDto } from "../dto";
+import { Injectable } from "@nestjs/common";
 
+
+@Injectable()
 export class ProfileService {
   constructor(private prisma: PrismaService) { }
 
@@ -9,7 +12,7 @@ export class ProfileService {
   const updateData: any = {};
   if (dto.username) updateData.username = dto.username;
   if (dto.telephone) updateData.telephone = dto.telephone;
-  if (dto.email) updateData.address = dto.email;
+  if (dto.email) updateData.email = dto.email;
 
   if (dto.email){
   const existingEmail =  await this.prisma.user.findUnique({
