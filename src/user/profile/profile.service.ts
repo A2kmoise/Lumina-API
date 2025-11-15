@@ -42,7 +42,10 @@ export class ProfileService {
       }
     });
 
-    return UpdatedProfile;
+    return {
+      message: "Profile updated successfully",
+      UpdatedProfile
+    }
 }
 
 
@@ -50,6 +53,10 @@ export class ProfileService {
     await this.prisma.user.delete({
       where: { id: userId },
     });
+
+    return {
+      message: "Your account is deleted! Goodbye!"
+    }
   }
 
 }
