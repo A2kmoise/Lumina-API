@@ -5,13 +5,13 @@ import { UserAuthModule } from './user/auth/user-auth.module';
 import { TransporterAuthModule } from './transporter/auth/transporter-auth.module';
 import { UserModule } from './user/user.module';
 import { TransporterModule } from './transporter/transporter.module';
+import { ProfileModule } from './user/profile/profile.module';
 
 @Module({
   imports: [
     UserModule,
-    UserAuthModule,
     TransporterModule,
-     TransporterAuthModule],
+    ],
   controllers: [AppController],
   providers: [AppService],
 })
