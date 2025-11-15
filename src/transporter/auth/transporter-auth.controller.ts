@@ -1,22 +1,22 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { TransporterService } from "./transporter.service";
+import { TransporterAuthService } from "./transporter-auth.service";
 import { Sign } from "crypto";
-import { LoginDto, SignupDto } from "./dto";
+import { LoginDto, SignupDto } from "../dto";
 
 @Controller('transporter')
 export class TransporterController {
-  constructor(private transporterService: TransporterService) {}
+  constructor(private transporterService: TransporterAuthService) { }
 
   @Post('signup')
   signup(@Body() dto: SignupDto) {
-    return this.transporterService.signUp(dto);
+    return this.transporterService.signup(dto);
   }
 
   @Post('login')
-  login(@Body() dto:LoginDto) {
+  login(@Body() dto: LoginDto) {
     return this.transporterService.login(dto);
   }
-@Post('refresh')
+  @Post('refresh')
   refresh(@Body('refreshToken') refreshToken: string) {
     return this.transporterService.refreshTokens(refreshToken);
   }

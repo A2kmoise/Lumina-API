@@ -9,12 +9,11 @@ datasource db {
 
 model User {
   id           String   @id @default(uuid())
-  email        String   @unique
+  email        String?  @unique
   password     String
-  firstName    String
-  lastName     String
+  username     String
   refreshToken String?
-  telephone    String   @unique
+  telephone    String?  @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -23,12 +22,11 @@ model User {
 
 model Driver {
   id              String   @id @default(uuid())
-  email           String   @unique
+  email           String?  @unique
   password        String
-  firstName       String
-  lastName        String
+  username        String
   refreshToken    String?
-  telephone       String   @unique
+  telephone       String?  @unique
   licenseNumber   String   @unique
   carDetails      String
   carCapacity     Int

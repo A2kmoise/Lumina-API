@@ -1,9 +1,15 @@
-import { IsString, IsEmail, IsNotEmpty, IsOptional, IsNumber, IsStrongPassword, MinLength } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsOptional, IsNumber, IsStrongPassword, MinLength, ValidateIf } from 'class-validator';
 
 export class SignupDto {
   @IsEmail()
-  @IsNotEmpty()
-  email: string;
+  @IsOptional()
+  @ValidateIf(o => !o.telephone || o.email) 
+  email?: string;
+
+  @IsString()
+  @IsOptional()
+  @ValidateIf(o => !o.email || o.telephone) 
+  telephone?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -13,15 +19,7 @@ export class SignupDto {
 
   @IsString()
   @IsNotEmpty()
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  lastName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  telephone: string;
+  username: string;
 
   @IsString()
   @IsNotEmpty()
