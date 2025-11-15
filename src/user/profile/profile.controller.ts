@@ -1,17 +1,19 @@
-import { Controller, Patch, Delete } from "@nestjs/common";
+import { Controller, Patch, Delete, Body } from "@nestjs/common";
+import { ProfileService } from "./profile.service";
+import { ProfileDto } from "../dto";
 
 @Controller('user-profile')
 export class ProfileController {
-  constructor() {}
+  constructor(private profileService: ProfileService) {}
   
- @Patch('update')
- updateProfile() {
-   // Implementation for updating user profile
+ @Patch('update/:id')
+ updateProfile(@Body() dto: ProfileDto) {
+   this.profileService.updateProfile();
  }
  
  @Delete('delete')
  deleteProfile() {
-   // Implementation for deleting user profile
+   this.profileService.deleteProfile();
  }
- 
+
 }
