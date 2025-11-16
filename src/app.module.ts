@@ -6,6 +6,7 @@ import { TransporterAuthModule } from './transporter/auth/transporter-auth.modul
 import { UserModule } from './user/user.module';
 import { TransporterModule } from './transporter/transporter.module';
 import { ProfileModule } from './user/profile/profile.module';
+import { CloudinaryService } from './cloudinary/cloudinary.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { ProfileModule } from './user/profile/profile.module';
     TransporterModule,
     ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CloudinaryService],
 })
 export class AppModule { }
