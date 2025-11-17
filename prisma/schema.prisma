@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String?  @unique
-  password     String
-  username     String
-  refreshToken String?
-  telephone    String?  @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(uuid())
+  email         String?  @unique
+  password      String
+  username      String
+  imageUrl      String?
+  imagePublicId String?
+  refreshToken  String?
+  telephone     String?  @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([telephone])
 }
