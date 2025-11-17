@@ -7,11 +7,13 @@ import { UserModule } from './user/user.module';
 import { TransporterModule } from './transporter/transporter.module';
 import { ProfileModule } from './user/profile/profile.module';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     UserModule,
     TransporterModule,
+    ConfigModule
     ],
   controllers: [AppController],
   providers: [AppService, CloudinaryService],
