@@ -1,4 +1,4 @@
-import { Controller, Patch, Delete, Body, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Controller, Patch, Delete, Body, UseGuards, UseInterceptors, UploadedFile } from "@nestjs/common";
 import { ProfileService } from "./profile.service";
 import { ProfileDto } from "../dto";
 import { UserAuthGuard } from "../guard/jwt-auth.guard";
@@ -29,7 +29,7 @@ export class ProfileController {
 @Patch('avatar')
 @UseInterceptors(FileInterceptor('file',{
   storage: memoryStorage(),
-  limits: { fieldSize: 5*1024*1024},
+  limits: { fileSize: 5*1024*1024},
   fileFilter: (req, file, cb) => {
     if(!file.mimetype.match(/\/(jpg|jpeg|png|webp)$/)){
       return cb(new Error('only jpg,jpeg,png and webp are only allowed@'), false)
@@ -38,7 +38,12 @@ export class ProfileController {
   }
 }
 ))
-uploadProfilephoto(@User('id') userId: string){}
+uploadProfilephoto(@User('id') userId: string, @UploadedFile() file: Express.Multer.File){
+  if (!file){
+    throw new Error("No file provided");
+  }
+  return this.profileService.uploadProfilePhoto(userId, file.buffer)
+}
 
 @UseGuards(UserAuthGuard)
 @Delete('deleteAvatar')
