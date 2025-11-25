@@ -3,14 +3,15 @@ import { ProfileService } from "./profile.service";
 import { ProfileController } from "./profile.controller";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CloudinaryService } from "src/cloudinary/cloudinary.service";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
-  imports: [],
+  imports: [ConfigModule],
   controllers: [ProfileController],
   providers: [
     ProfileService,
-PrismaService,
-CloudinaryService
+    PrismaService,
+    CloudinaryService
   ],
 })
 export class ProfileModule { }
