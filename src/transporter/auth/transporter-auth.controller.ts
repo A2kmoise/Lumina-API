@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { TransporterAuthService } from "./transporter-auth.service";
-import { Sign } from "crypto";
 import { LoginDto, SignupDto } from "../dto";
 
 @Controller('transporter')
